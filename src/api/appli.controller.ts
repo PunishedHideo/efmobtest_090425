@@ -2,6 +2,7 @@ import { Request, Response } from 'express'; // types
 import { createApplicationService, workApplicationService, completeApplicationService, rejectApplicationService, getApplicationService, rejectInWorkApplicationService } from './appli.service';
 
 export const applicationCreate = async (req: Request, res: Response) => {
+    try {
     // body must contain topic and text
     if (!req.body) {
         res.status(400).send('Request must contain a body with "topic" and "text" properties');
@@ -14,9 +15,13 @@ export const applicationCreate = async (req: Request, res: Response) => {
             // additional error handling could be added
         }
     }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
 
 export const applicationWork = async (req: Request, res: Response) => {
+    try {
     if (!req.body) {
         res.status(400).send("Request body must contain an application's unique 'insertedId'");
     } else {
@@ -28,9 +33,13 @@ export const applicationWork = async (req: Request, res: Response) => {
             // additional error handling could be added
         }
     }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
 
 export const applicationComplete = async (req: Request, res: Response) => {
+    try {
     if (!req.body) {
         res.status(400).send("Request body must contain an application's unique 'insertedId' and 'replyText'");
     } else {
@@ -42,9 +51,13 @@ export const applicationComplete = async (req: Request, res: Response) => {
             // additional error handling could be added
         }
     }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
 
 export const applicationReject = async (req: Request, res: Response) => {
+    try {
     if (!req.body) {
         res.status(400).send("Request body must contain an application's unique 'insertedId' and 'replyText'");
     } else {
@@ -56,9 +69,13 @@ export const applicationReject = async (req: Request, res: Response) => {
             // additional error handling could be added
         }
     }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
 
 export const applicationGet = async (req: Request, res: Response) => {
+    try {
     if (!req.query) {
         res.status(400).send("Request query must contain 'insertedId' or 'time' or 'timeFrom' and 'timeTo'")
     } else {
@@ -91,9 +108,13 @@ export const applicationGet = async (req: Request, res: Response) => {
         res.status(400).send("Something is wrong. Request query must contain 'insertedId' or 'time' or 'timeFrom' and 'timeTo'")
     }
 }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
 
 export const applicationRejectInWork = async (req: Request, res: Response) => {
+    try {
     if (!req.body) {
         res.status(400).send("Request body must contain 'rejectionReason'");
     } else {
@@ -105,4 +126,7 @@ export const applicationRejectInWork = async (req: Request, res: Response) => {
             // additional error handling could be added
         }
     }
+} catch(err) {
+    res.status(500).send('Serverside error. Please retry the request')
+}
 }
